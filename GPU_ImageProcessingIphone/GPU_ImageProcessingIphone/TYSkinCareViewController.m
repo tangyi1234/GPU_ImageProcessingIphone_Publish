@@ -28,13 +28,13 @@
     // Do any additional setup after loading the view.
 //    [self liveVideo];
 //    [self imageFilter];//手动操作滤镜，可以添加多个滤镜
-    [self learningWithimageFilter];
+//    [self learningWithimageFilter];
 //    [self SingleimageFilter];//给图片添加单个滤镜，自动添加滤镜
 //    [self videoAndStore];//播放录像滤镜并存储
 //    [self addManyFilter];//添加滤镜组
 //    [self GPUImageAmatorkaFilterTest];//以上三种特殊的滤镜-----左边Resources文件夹中是图片
 //    [self writeToFile];
-//    [self initButView];
+    [self initButView];
 }
 
 - (void)liveVideo {
