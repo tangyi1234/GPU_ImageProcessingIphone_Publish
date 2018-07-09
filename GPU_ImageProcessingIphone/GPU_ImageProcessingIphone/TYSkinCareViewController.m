@@ -8,6 +8,7 @@
 
 #import "TYSkinCareViewController.h"
 #import "GPUImage.h"
+#import "GPUImageBeautifyFilter.h"
 
 @interface TYSkinCareViewController ()<GPUImageMovieDelegate,GPUImageMovieWriterDelegate,GPUImageVideoCameraDelegate>
 @property(nonatomic, strong) GPUImageVideoCamera *videocamera;//摄像
@@ -15,6 +16,9 @@
 @property(nonatomic, strong) GPUImageMovie *movie;
 
 @property(nonatomic, strong) GPUImageFilterGroup *_filterGroup;//滤镜组
+@property(nonatomic, strong) GPUImageView *filterView;
+
+@property(nonatomic, strong) UIButton *but;
 @end
 
 @implementation TYSkinCareViewController
@@ -22,13 +26,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self liveVideo];
+//    [self liveVideo];
 //    [self imageFilter];//手动操作滤镜，可以添加多个滤镜
+    [self learningWithimageFilter];
 //    [self SingleimageFilter];//给图片添加单个滤镜，自动添加滤镜
 //    [self videoAndStore];//播放录像滤镜并存储
 //    [self addManyFilter];//添加滤镜组
-    [self GPUImageAmatorkaFilterTest];//以上三种特殊的滤镜-----左边Resources文件夹中是图片
-    [self writeToFile];
+//    [self GPUImageAmatorkaFilterTest];//以上三种特殊的滤镜-----左边Resources文件夹中是图片
+//    [self writeToFile];
+//    [self initButView];
 }
 
 - (void)liveVideo {
@@ -105,6 +111,25 @@
     
     [stillImageSource addTarget:stillImageFilter];
     [stillImageFilter useNextFrameForImageCapture];//告诉滤镜以后用它，节省内存
+    [stillImageSource processImage];//滤镜渲染
+    
+    UIImage *currentFilteredVideoFrame = [stillImageFilter imageFromCurrentFramebuffer];//从当前滤镜缓冲区获取滤镜图片
+    
+    UIImageView *imagev=[[UIImageView alloc] initWithImage:currentFilteredVideoFrame];
+    imagev.frame=self.view.frame;
+    [self.view addSubview:imagev];
+}
+
+//手动操作滤镜，可以添加多个滤镜
+- (void)learningWithimageFilter{
+    UIImage *inputImage = [UIImage imageNamed:@"11"];
+    
+    GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:inputImage];
+    GPUImageSepiaFilter *stillImageFilter = [[GPUImageSepiaFilter alloc] init];
+    
+    [stillImageSource addTarget:stillImageFilter];
+    [stillImageFilter useNextFrameForImageCapture];//告诉滤镜以后用它，节省内存
+    [stillImageFilter renderToTextureWithVertices:[GPUImageFilter textureCoordinatesForRotation:kGPUImageRotateLeft] textureCoordinates:[GPUImageFilter textureCoordinatesForRotation:kGPUImageRotateRight]];
     [stillImageSource processImage];//滤镜渲染
     
     UIImage *currentFilteredVideoFrame = [stillImageFilter imageFromCurrentFramebuffer];//从当前滤镜缓冲区获取滤镜图片
@@ -312,6 +337,40 @@
     return YES; // Support all orientations.
 }
 
+- (void)initButView{
+    
+    self.videocamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:AVCaptureSessionPreset640x480 cameraPosition:AVCaptureDevicePositionFront];
+    self.videocamera.outputImageOrientation = UIInterfaceOrientationPortrait;
+    self.videocamera.horizontallyMirrorFrontFacingCamera = YES;
+    self.filterView = [[GPUImageView alloc] initWithFrame:self.view.frame];
+    self.filterView.center = self.view.center;
+    
+    [self.view addSubview:self.filterView];
+    [self.videocamera addTarget:self.filterView];
+    [self.videocamera startCameraCapture];
+    
+    _but = [UIButton buttonWithType:UIButtonTypeCustom];
+    _but.frame = CGRectMake(10, 64, 150, 30);
+    _but.backgroundColor = [UIColor redColor];
+    [_but setTitle:@"点击" forState:UIControlStateNormal];
+    [_but addTarget:self action:@selector(selectorBut) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_but];
+}
+
+- (void)selectorBut {
+    if (_but.selected) {
+        _but.selected = NO;
+        [self.videocamera removeAllTargets];
+        [self.videocamera addTarget:self.filterView];
+    }
+    else {
+        _but.selected = YES;
+        [self.videocamera removeAllTargets];
+        GPUImageBeautifyFilter *beautifyFilter = [[GPUImageBeautifyFilter alloc] init];
+        [self.videocamera addTarget:beautifyFilter];
+        [beautifyFilter addTarget:self.filterView];
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

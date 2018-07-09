@@ -25,6 +25,7 @@
 		A24B711020EDC1F0001062D9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A24B710F20EDC1F0001062D9 /* Foundation.framework */; };
 		A25DE83420EF055C00AE01C7 /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A25DE83320EF055C00AE01C7 /* video.mp4 */; };
 		A25DE83720EF197A00AE01C7 /* TYTestPerformanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A25DE83620EF197A00AE01C7 /* TYTestPerformanceViewController.m */; };
+		A2C21AD820F35AF100E5C4A9 /* GPUImageBeautifyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C21AD720F35AF100E5C4A9 /* GPUImageBeautifyFilter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -225,6 +226,8 @@
 		A25DE83320EF055C00AE01C7 /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
 		A25DE83520EF197A00AE01C7 /* TYTestPerformanceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TYTestPerformanceViewController.h; sourceTree = "<group>"; };
 		A25DE83620EF197A00AE01C7 /* TYTestPerformanceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TYTestPerformanceViewController.m; sourceTree = "<group>"; };
+		A2C21AD620F35AF100E5C4A9 /* GPUImageBeautifyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageBeautifyFilter.h; sourceTree = "<group>"; };
+		A2C21AD720F35AF100E5C4A9 /* GPUImageBeautifyFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageBeautifyFilter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,6 +279,8 @@
 				A24B704C20EDBA83001062D9 /* TYSkinCareViewController.m */,
 				A25DE83520EF197A00AE01C7 /* TYTestPerformanceViewController.h */,
 				A25DE83620EF197A00AE01C7 /* TYTestPerformanceViewController.m */,
+				A2C21AD620F35AF100E5C4A9 /* GPUImageBeautifyFilter.h */,
+				A2C21AD720F35AF100E5C4A9 /* GPUImageBeautifyFilter.m */,
 				A24B703E20EDB986001062D9 /* Assets.xcassets */,
 				A24B704020EDB986001062D9 /* LaunchScreen.storyboard */,
 				A24B704320EDB986001062D9 /* Info.plist */,
@@ -580,6 +585,7 @@
 				A25DE83720EF197A00AE01C7 /* TYTestPerformanceViewController.m in Sources */,
 				A24B704D20EDBA83001062D9 /* TYSkinCareViewController.m in Sources */,
 				A24B703720EDB986001062D9 /* ViewController.m in Sources */,
+				A2C21AD820F35AF100E5C4A9 /* GPUImageBeautifyFilter.m in Sources */,
 				A24B703420EDB986001062D9 /* AppDelegate.m in Sources */,
 				A24B704520EDB986001062D9 /* main.m in Sources */,
 				A24B703D20EDB986001062D9 /* GPU_ImageProcessingIphone.xcdatamodeld in Sources */,
